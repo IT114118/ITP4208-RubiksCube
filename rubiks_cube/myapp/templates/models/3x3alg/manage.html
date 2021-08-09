@@ -1,0 +1,48 @@
+{% extends "layout/app.html" %}
+
+{% block title %}
+Manage - 3x3 Algorithms | Rubik's Cube
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="pt-3 mb-3">
+        <a class="btn btn-outline-dark mr-2" href="{% url 'alg_list' %}">Back</a>
+        Manage - 3x3 Algorithms
+    </h3>
+
+    {% if request.user.is_authenticated and request.user.is_staff %}
+        {% if object_list %}
+            {% for post in object_list reversed %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Method: {{ post.method }}</h6>
+                                <p class="card-text">{{ post.content }}</p>
+                            </div>
+                            <div class="col-sm col-lg-4">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="{{ post.youtube }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                         </div>
+                        <div class="row mt-3">
+                            <div class="col-sm">
+                                <p class="card-text"><small class="text-muted">Last updated: {{ post.updated }}</small></p>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-warning" href="{% url 'alg_update' post.id %}"><i class="fa fa-pencil" aria-hidden="true"></i> Update</a>
+                                <a class="btn btn-danger" href="{% url 'alg_delete' post.id %}"><i class="fa fa-minus" aria-hidden="true"></i> Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        No permission
+    {% endif %}
+</div>
+{% endblock content %}

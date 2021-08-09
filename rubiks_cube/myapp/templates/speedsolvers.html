@@ -1,0 +1,74 @@
+{% extends "layout/app.html" %}
+{% load static %}
+
+{% block title %}
+Speedsolvers | Rubik's Cube
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mt-3 mb-3">Speedsolvers</h3>
+    <p class="text-muted">Famous Rubik's Cube solver</p>
+
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            {% with name="Yusheng Du" %}
+            <div class="col-md-2">
+                <a class="card-img" data-fancybox="gallery" href="{% static "myapp/images/yusheng-du-record.jpg" %}" data-caption="{{ name }}">
+                    <img src="{% static "myapp/images/yusheng-du-record.jpg" %}" class="card-img" alt="{{ name }}">
+                </a>
+            </div>
+            <div class="col">
+                <div class="card-body">
+                    <h5 class="card-title">{{ name }}</h5>
+                    <p class="card-text">Yusheng Du (杜宇生) shaved off 0.75 seconds from the record of Feliks Zemdegs (4.22s) setting the new Rubik's Cube single World Record at an amazing 3.47 seconds!</p>
+                </div>
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            {% with name="Max Park" %}
+            <div class="col">
+                <div class="card-body">
+                    <h5 class="card-title">{{ name }}</h5>
+                    <p class="card-text">
+                    Max Park is an American Rubik's Cube speedsolver who formerly held the world record average of five 3x3x3 solves (by WCA traditions), 6.39 seconds, set on 23 April 2017 at OCSEF Open 2017.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a class="card-img" data-fancybox="gallery" href="{% static "myapp/images/max-park.jpg" %}" data-caption="{{ name }}">
+                    <img src="{% static "myapp/images/max-park.jpg" %}" class="card-img" alt="{{ name }}">
+                </a>
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            {% with name="Feliks Zemdegs" %}
+            <div class="col-md-2">
+                <a class="card-img" data-fancybox="gallery" href="{% static "myapp/images/Feliks Zemdegs.jpg" %}" data-caption="{{ name }}">
+                    <img src="{% static "myapp/images/Feliks Zemdegs.jpg" %}" class="card-img" alt="{{ name }}">
+                </a>
+            </div>
+            <div class="col">
+                <div class="card-body">
+                    <h5 class="card-title">{{ name }}</h5>
+                    <p class="card-text">
+                    Zemdegs has a website, CubeSkills, which includes tutorials on solving the Rubik's cube and other puzzles.
+                    There are free algorithm sheets, and some free speed solving tutorial videos.
+                    The site also offers a premium membership, which enables access to advanced speed solving videos.
+                    Members can also submit their own solving videos which Zemdegs will critique.
+                    </p>
+                </div>
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

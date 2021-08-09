@@ -1,0 +1,68 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static "myapp/favicon/favicon-32x32.png" %}" width="30" height="30" class="d-inline-block align-top" alt="Rubik's cube favicon">
+            Rubik's Cube
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+
+                {% url 'home' as home %}
+                <li class="nav-item{% if request.path == home %} active{% endif %}">
+                    <a class="nav-link" href="{{ home }}">Home</a>
+                </li>
+
+                {% url 'puzzles' as puzzles %}
+                <li class="nav-item{% if request.path == puzzles %} active{% endif %}">
+                    <a class="nav-link" href="{{ puzzles }}">Puzzles</a>
+                </li>
+
+                {% url 'speedsolvers' as speedsolvers %}
+                <li class="nav-item{% if request.path == speedsolvers %} active{% endif %}">
+                    <a class="nav-link" href="{{ speedsolvers }}">Speedsolvers</a>
+                </li>
+
+                {% url 'solve_cube' as solve_cube %}
+                <li class="nav-item{% if request.path == solve_cube %} active{% endif %}">
+                    <a class="nav-link" href="{{ solve_cube }}">Solve3x3</a>
+                </li>
+
+                {% url 'alg_list' as alg_list %}
+                {% url 'pattern_list' as pattern_list %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="nav-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Posts...</a>
+                    <div class="dropdown-menu mb-3" aria-labelledby="nav-dropdown">
+                        <a class="dropdown-item{% if request.path == alg_list %} active{% endif %}" href="{{ alg_list }}">3x3 Algorithms</a>
+                        <a class="dropdown-item{% if request.path == pattern_list %} active{% endif %}" href="{{ pattern_list }}">3x3 Patterns</a>
+                    </div>
+                </li>
+            </ul>
+
+            {% if request.user.is_authenticated %}
+                <div class="row">
+                    <div class="col my-auto">
+                        <span class="mr-3">
+                            Welcome, {{ request.user }}
+                            {% if request.user.is_staff %}
+                            (Admin)
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a class="btn btn-outline-primary mr-2" href="{% url 'login' %}" role="button">Login</a>
+                <a class="btn btn-primary" href="{% url 'register' %}" role="button">Register</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

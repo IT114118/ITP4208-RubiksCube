@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <meta content="text/html; charset=UTF-8" name="Content-Type" />
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static "myapp/favicon/apple-touch-icon.png" %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static "myapp/favicon/favicon-32x32.png" %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static "myapp/favicon/favicon-16x16.png" %}">
+        <link rel="manifest" href="{% static "myapp/favicon/site.webmanifest" %}">
+        <link rel="mask-icon" href="{% static "myapp/favicon/safari-pinned-tab.svg" %}" color="#5bbad5">
+        <link rel="shortcut icon" href="{% static "myapp/favicon/favicon.ico" %}">
+        <meta name="msapplication-TileColor" content="#2b5797">
+        <meta name="msapplication-config" content="{% static "myapp/favicon/browserconfig.xml" %}">
+        <meta name="theme-color" content="#ffffff">
+
+        {% include 'includes/css.html' %}
+        {% block css %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            {% include 'includes/navbar.html' %}
+        <header>
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="container mt-3">
+                ITP4208 - EA Project | Group 8 - Theme: Rubik's Cube
+            </div>
+        </footer>
+
+        {% include 'includes/js.html' %}
+        {% block js %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,28 @@
+{% extends "layout/app.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+Delete - Post | Rubik's Cube
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mt-3 mb-3">
+        <a class="btn btn-outline-dark mr-2" href="{% url 'post_manage' %}">Back</a>
+        Delete Post
+    </h3>
+
+    {% if request.user.is_authenticated and request.user.is_staff %}
+        <div class="mb-3">
+            Are you sure you want to delete post?
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_fields_errors }}
+            <button type="submit" class="btn btn-danger"><i class="fa fa-minus" aria-hidden="true"></i> Delete</button>
+        </form>
+    {% else %}
+        No permission
+    {% endif %}
+</div>
+{% endblock %}

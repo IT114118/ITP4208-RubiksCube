@@ -1,0 +1,103 @@
+{% extends "layout/app.html" %}
+{% load static %}
+
+{% block title %}
+Register | Rubik's Cube
+{% endblock %}
+
+{% block css %}
+<style>
+.max-w {
+    max-width: 25rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-3 mb-3">
+        <div class="card-body">
+            <div class="text-center">
+                <img class="mb-2" src="{% static "myapp/rubiks_cube.png" %}" alt="" width="72" height="72">
+                <h2 class="mb-3">Rubik's Cube</h2>
+            </div>
+
+            {% if request.user.is_authenticated %}
+            <div class="text-center">
+                You're logged in as {{ request.user }}
+                <a class="btn btn-outline-danger ml-2" href="{% url 'logout' %}">Logout</a>
+            </div>
+            {% else %}
+            <form id="register" class="max-w m-auto" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                    <div id="username-error" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                    <div id="password1-error" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                    <div id="password2-error" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" class="form-control" id="email">
+                    <div id="email-error" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First name</label>
+                    <input type="text" name="first_name" class="form-control" id="first_name">
+                    <div id="first_name-error" class="invalid-feedback"></div>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last name</label>
+                    <input type="text" name="last_name" class="form-control" id="last_name">
+                    <div id="last_name-error" class="invalid-feedback"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+            <div class="max-w m-auto pb-4">
+                <hr>
+                Already Have an account?
+                <a class="btn btn-outline-primary btn-block" href="{% url 'login' %}" role="button">Login</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+$('#register').submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'post',
+        data: $('#register').serialize(),
+        success: function(data) {
+            if (data.success) {
+                location.href = '/';
+            } else {
+                keys = ['username', 'password1', 'password2', 'email', 'first_name', 'last_name'];
+                for (i in keys) {
+                    if (data[keys[i]]) {
+                        $('#'+keys[i]).addClass('is-invalid');
+                        $('#'+keys[i]+'-error').html(data[keys[i]]);
+                    } else {
+                        $('#'+keys[i]).removeClass('is-invalid');
+                        $('#'+keys[i]+'-error').text('');
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

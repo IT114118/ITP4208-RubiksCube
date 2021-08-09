@@ -1,0 +1,47 @@
+{% extends "layout/app.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+Update - 3x3 Patterns | Rubik's Cube
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mt-3 mb-3">
+        <a class="btn btn-outline-dark mr-2" href="{% url 'pattern_manage' %}">Back</a>
+        Update - 3x3 Patterns
+    </h3>
+    
+    {% if request.user.is_authenticated and request.user.is_staff %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.non_fields_errors }}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title | add_class:"form-control" }}
+                {{ form.title.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.difficulty.id_for_label }}">Difficulty</label>
+                {{ form.difficulty | add_class:"form-control" }}
+                {{ form.difficulty.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}">Content</label>
+                {{ form.content | add_class:"form-control" }}
+                {{ form.content.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image_url.id_for_label }}">Image URL</label>
+                {{ form.image_url | add_class:"form-control" }}
+                {{ form.image_url.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Update</button>
+            <button type="reset" class="btn btn-outline-info">Reset</button>
+        </form>
+    {% else %}
+        No permission
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "layout/app.html" %}
+{% load static %}
+
+{% block title %}
+Solve 3x3 | Rubik's Cube
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mt-3 mb-3">Solve 3x3</h3>
+    <p class="text-muted">Here are the useful resource to solve the 3x3 Rubik's Cube</p>
+
+    <h4 class="mt-5 mb-3">Learn how to solve</h4>
+
+    3x3 Online Solution:
+    {% with url="https://www.youcandothecube.com/solve-it/3-x-3-solution" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+    <br>
+    How to solve the Rubik's Cube:
+    {% with url="https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+    <br>
+    How to solve the Rubik's Cube:
+    {% with url="https://cube3x3.com/how-to-solve-a-rubiks-cube/" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+
+    <h4 class="mt-5 mb-3">Online Rubik's Cube solver</h4>
+
+    {% with url="https://rubiks-cube-solver.com/" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+    <br>
+    
+    {% with url="https://ruwix.com/online-rubiks-cube-solver-program/" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+    <br>
+    
+    {% with url="https://rubiks-cu.be/" %}
+    <a href="{{ url }}" rel="noopener">{{ url }}</a>
+    {% endwith %}
+
+    <h4 class="mt-5 mb-3">Rubik's Cube 3x3 Solution Guide</h4>
+    <div class="embed-responsive embed-responsive-1by1 mb-3" style="max-width:500px;">
+        <embed class="embed-responsive-item" src="{% static "myapp/Rubiks.pdf" %}" width="500" height="700">
+    </div>
+</div>
+{% endblock content %}

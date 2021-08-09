@@ -1,0 +1,76 @@
+{% extends "layout/app.html" %}
+{% load static %}
+
+{% block title %}
+Login | Rubik's Cube
+{% endblock %}
+
+{% block css %}
+<style>
+.max-w {
+    max-width: 25rem;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-3 mb-3">
+        <div class="card-body">
+            <div class="text-center">
+                <img class="mb-2" src="{% static "myapp/rubiks_cube.png" %}" alt="" width="72" height="72">
+                <h2 class="mb-3">Rubik's Cube</h2>
+            </div>
+
+            {% if request.user.is_authenticated %}
+            <div class="text-center">
+                You're logged in as {{ request.user }}
+                <a class="btn btn-outline-danger ml-2" href="{% url 'logout' %}">Logout</a>
+            </div>
+            {% else %}
+            <form id="login" class="max-w m-auto" method="post">
+                {% csrf_token %}
+
+                <div id="error" class="alert alert-danger" role="alert" style="display: none"></div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary btn-block">Login</button>
+            </form>
+            <div class="max-w m-auto pb-4">
+                <hr>
+                Don't Have an account?
+                <a class="btn btn-primary btn-block" href="{% url 'register' %}" role="button">Register</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+$('#login').submit(function(e) {
+    e.preventDefault();
+    $('#error').css('display', 'none');
+    $.ajax({
+        type: 'post',
+        data: $('#login').serialize(),
+        success: function(data) {
+            if (data.success) {
+                location.href = '/';
+            } else {
+                $('#error').text(data.error).css('display', 'block');
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
